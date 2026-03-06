@@ -17,41 +17,50 @@ class Calculadora {
     public function zerar() {
         $this->resultado = 0;
     }
-
+        
     public function desfazer() {
-        $this->memoria = 0;
+        $this->resultado = $this->memoria;        
     }
 
-    public function somar($n1, $n2) {
-        return $n1 + $n2;
+    public function somar($num) {
+        $this->memoria = $this->resultado;
+        return $this->resultado + $num;
+    }
+        
+    public function subtrair($num) {
+        $this->memoria = $this->resultado;
+        return $this->resultado - $num;
+    }
+        
+    public function multiplicar($num) {
+        $this->memoria = $this->resultado;
+        return $this->resultado * $num;
     }
 
-    public function subtrair($n1, $n2) {
-        return $n1 - $n2;
-    }
-
-    public function multiplicar($n1, $n2) {
-        return $n1 * $n2;
-    }
-
-    public function dividir($n1, $n2) {
-        if ($n2 != 0)
-            return $n1 / $n2;
+    public function dividir($num) {
+        if ($num != 0) {
+            $this->memoria = $this->resultado;
+            return $this->resultado / $num;
+        }
         else
             return "Operação inválida";
     }
 
-    public function elevarPotencia($n1, $n2) {
-        if ($n2 != 0)
-            return $n1 ** $n2;
+    public function elevarPotencia($num) {
+        $this->memoria = $this->resultado;
+        if ($num != 0)
+            return $this->resultado ** $num;
         else
             return 1;
     }
 
-    public function calcularPorcentagem($n1, $n2) {
-        return $n1 * $n2 * 100;
+    public function calcularPorcentagem($num) {
+        $this->memoria = $this->resultado;
+        return $this->resultado * $num / 100;
     }
 
-
-
+    public function calcularRaiz() {
+        $this->memoria = $this->resultado;
+        return $this->resultado ** 1 / 2;
+    }
 }
