@@ -43,8 +43,11 @@
 <body>
     <section class="form-container">
         <form method="POST" class="form"> 
-            <label>Número:</label>
-            <input type="text" name="num" required>
+            <label>Preço de venda:</label>
+            <input type="text" name="venda" required>
+
+            <label>Porcentagem de lucro:</label>
+            <input type="text" name="lucro" required>
 
             <button type="submit">Calcular</button>
         </form>
@@ -53,17 +56,21 @@
             <?php 
             
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $num = $_POST['num'];
+                    $vendaEntrada = $_POST['venda'];
+                    $lucroEntrada = $_POST['lucro'];
 
-                    $num = str_split($num, 1);
-                    $soma = 0;
+                    /*
+                    $vendaNormalizada = str_replace(",", ".", $vendaEntrada);
+                    $lucroNormalizado = str_replace(",", ".", $lucroEntrada);
 
-                    for ($i = 0; $i < count($num); $i++) {
-                        $soma += $num[$i];
-                        echo "<p>Dígito {$i}: {$num[$i]}</p>";
-                    }
+                    $venda = floatval($vendaNormalizada);
+                    $lucro = floatval($lucroNormalizado);
+                    */
 
-                    echo "<h3>Soma dos dígitos: {$soma}</h3>";
+                    $custo = $vendaEntrada / (1 + $lucroEntrada / 100);
+                    $custo = number_format(num: $custo, decimals: 2, decimal_separator: ".", thousands_separator: ",");
+
+                    echo "<h3>Custo unitário: R$ {$custo}</h3>";
                 }
 
             ?>

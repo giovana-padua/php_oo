@@ -43,8 +43,8 @@
 <body>
     <section class="form-container">
         <form method="POST" class="form"> 
-            <label>Número:</label>
-            <input type="text" name="num" required>
+            <label>Peso do peixe:</label>
+            <input type="text" name="peso" required>
 
             <button type="submit">Calcular</button>
         </form>
@@ -53,17 +53,14 @@
             <?php 
             
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $num = $_POST['num'];
+                    $peso = $_POST['peso'];
+                    
+                    $multa = 0;
+                    if ($peso > 50) {
+                        $multa = 4 * ($peso / 5);
+                
 
-                    $num = str_split($num, 1);
-                    $soma = 0;
-
-                    for ($i = 0; $i < count($num); $i++) {
-                        $soma += $num[$i];
-                        echo "<p>Dígito {$i}: {$num[$i]}</p>";
-                    }
-
-                    echo "<h3>Soma dos dígitos: {$soma}</h3>";
+                    echo "<h3>Multa por ultrapassar {$peso} kg: R$ {$multa}</h3>";
                 }
 
             ?>
