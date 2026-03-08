@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+.form input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.form button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-image: linear-gradient(326deg, #ffc107, transparent);
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-image: linear-gradient(160deg, #ffc107, #ffc107);
+}
+
+.price {
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 1rem;
+    background: antiquewhite;
+}
+
+.titulo_price {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.info_financiamento {
+    font-size: 1rem;
+    padding: 5px 0px;
+    border-bottom: dotted;
+    width: 30%;
+}
+
+.tb_price {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tb_price thead{
+    color: #fff;
+    background-color: #ffc107;
+}
+
+.tb_price tr {
+    height: 24px;
+}
+
+.tb_price tbody tr:hover {
+    font-weight: bold;
+    background-color: aliceblue;
+}
+
+.tb_price td,
+.tb_price th {
+    text-align: center;
+}

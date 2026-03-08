@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somar dígitos</title>
+    <title>Multa Peixe</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
     <style>
@@ -56,11 +56,14 @@
                     $peso = $_POST['peso'];
                     
                     $multa = 0;
-                    if ($peso > 50) {
-                        $multa = 4 * ($peso / 5);
-                
+                    $contador = 50;
+                    while ($contador < $peso)
+                    {
+                        $multa += 4;
+                        $contador += 5;
+                    }
 
-                    echo "<h3>Multa por ultrapassar {$peso} kg: R$ {$multa}</h3>";
+                    echo "<h3>Multa por ultrapassar " . $peso - 50 ."kg: R$ {$multa}</h3>";
                 }
 
             ?>
