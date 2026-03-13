@@ -122,11 +122,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </li>
 
                         <li class="nav-item active">
-                            <a class="nav-link" href="retangulo-interface.php">1- Retângulo</a>
+                            <a class="nav-link" href="index.php">1- Retângulo</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../ex2/calculadora-interface.php">2- Calculadora</a>
+                            <a class="nav-link" href="../ex2/index.php">2- Calculadora</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">

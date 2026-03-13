@@ -1,6 +1,8 @@
 <?php
 
     require_once "calculadora.php";
+    $calc = new Calculadora();
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../ex1/retangulo-interface.php">1- Retângulo</a>
+                        <a class="nav-link" href="../ex1/">1- Retângulo</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -53,50 +55,38 @@
         </nav>
     </header>
     <section>
-        <div>
-            <form method="POST">
-                <label>Número</label>
-                    <input type="number" step="1" name="inum">
-                
-                <div class="oper-btn">
-                    <h6>Escolha uma operação:</h6>
-                    <button type="submit" name="operacao">CE</button>
-                    <button type="submit" name="operacao"><-</button>
-                    <button type="submit" name="operacao">+</button>
-                    <button type="submit" name="operacao">-</button>
-                    <button type="submit" name="operacao">x</button>
-                    <button type="submit" name="operacao">/</button>
-                    <button type="submit" name="operacao">xⁿ</button>
-                    <button type="submit" name="operacao">%</button>
-                    <button type="submit" name="operacao">²√</button>
-                </div>
-            </form>
-
-            <div class="resultado">
-                <?php
+        <div class="resultado">=
+            <?php 
+                echo "<p>" . $calc->getMemoria() . "</p>";
+                echo "<h3>" . $calc->getResultado() . "</h3>";
+            ?>
+        </div>
+        <form method="POST">
+            <label>Número</label>
+                <input type="number" step="1" name="inum">
+                <?php 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $num = $_POST['inum'];
-                        $op = $_POST['operacao'];
-
-                        echo $num . $op;
-        
-                        switch ($op) {
-                            case 'CE':
-                                echo "<h2>zerando<h2>";
-                                break;
-                            
-                            case '+':
-                                echo "<h2>somando<h2>";
-                                break;
-                            
-                            default:
-                                # code...
-                                break;
-                        }
                     }
                 ?>
+            
+            <div class="oper-btn">
+                <h6>Escolha uma operação:</h6>
+                
+                <?php 
+                    echo '<input type="submit" value="CE"' . $calc->zerar() . 'name="zerar">';
+                    echo '<input type="submit" value="<-"' . $calc->desfazer() . 'name="desfazer">';
+                    echo '<input type="submit" value="+"' . $calc->somar($num) . 'name="somar">';
+                    echo '<input type="submit" value="-"' . $calc->subtrair($num) . 'name="subtrair">';
+                    echo '<input type="submit" value="x"' . $calc->multiplicar($num) . 'name="multiplicar">';
+                    echo '<input type="submit" value="/"' . $calc->dividir($num) . 'name="dividir">';
+                    echo '<input type="submit" value="Xⁿ"' . $calc->elevarPotencia($num) . 'name="potencia">';
+                    echo '<input type="submit" value="%"' . $calc->calcularPorcentagem() . 'name="porcentagem">';
+                    echo '<input type="submit" value="²√"' . $calc->calcularRaiz() . 'name="raiz">';
+                ?>
             </div>
-        </div>
+            
+        </form>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

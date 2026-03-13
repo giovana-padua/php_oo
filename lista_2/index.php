@@ -19,11 +19,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="ex1/retangulo-interface.php">1- Retângulo</a>
+                                <a class="nav-link" href="ex1/index.php">1- Retângulo</a>
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" href="ex2/calculadora-interface.php">2- Calculadora</a>
+                                <a class="nav-link" href="ex2/index.php">2- Calculadora</a>
                             <!--<ul class="dropdown-menu"> // class do li dropdown dropdown-toggle role="button" data-bs-toggle="dropdown" aria-expanded="false"//
                                     <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>

@@ -1,8 +1,8 @@
 <?php
 
 class Calculadora {
-    private $resultado; // armazena resultada das operações
-    private $memoria; // armazena resultado da última operação
+    private static $resultado; // armazena resultada das operações
+    private static $memoria; // armazena resultado da última operação
 
     public function __construct($res=0, $mem=0)
     {
@@ -10,57 +10,60 @@ class Calculadora {
         $this->memoria = $mem;
     }
 
+    public function getMemoria() {
+        return self::$memoria;
+    }
+
     public function getResultado() {
-        return $this->resultado;
+        return self::$resultado;
     }
 
     public function zerar() {
+        $this->memoria = $this->resultado;
         $this->resultado = 0;
     }
         
     public function desfazer() {
+        $this->memoria = $this->resultado;
         $this->resultado = $this->memoria;        
     }
 
-    public function somar($num) {
+    public function somar($num = null) {
         $this->memoria = $this->resultado;
-        return $this->resultado + $num;
+        $this->resultado = $this->resultado + $num;
     }
         
-    public function subtrair($num) {
+    public function subtrair($num = null) {
         $this->memoria = $this->resultado;
-        return $this->resultado - $num;
+        $this->resultado -= $num;
     }
         
-    public function multiplicar($num) {
+    public function multiplicar($num = null) {
         $this->memoria = $this->resultado;
-        return $this->resultado * $num;
+        $this->resultado *= $num;
     }
 
-    public function dividir($num) {
+    public function dividir($num = null) {
         if ($num != 0) {
             $this->memoria = $this->resultado;
-            return $this->resultado / $num;
+            $this->resultado /= $num;
         }
         else
             return "Operação inválida";
     }
 
-    public function elevarPotencia($num) {
+    public function elevarPotencia($num = null) {
         $this->memoria = $this->resultado;
-        if ($num != 0)
-            return $this->resultado ** $num;
-        else
-            return 1;
+        $this->resultado **= $num;
     }
 
-    public function calcularPorcentagem($num) {
+    public function calcularPorcentagem($num = null) {
         $this->memoria = $this->resultado;
-        return $this->resultado * $num / 100;
+        $this->resultado *= $num / 100;
     }
 
     public function calcularRaiz() {
         $this->memoria = $this->resultado;
-        return $this->resultado ** 1 / 2;
+        $this->resultado **= 1 / 2;
     }
 }
