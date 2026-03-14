@@ -10,6 +10,11 @@ class Carro {
         $this->tanque = $tan;
     }
 
+    public function getConsumo()
+    {
+        return $this->consumo;
+    }
+
     public function getCombustivel()
     {
         return $this->tanque;
@@ -17,9 +22,7 @@ class Carro {
 
     public function setCombustivel($litrosAbastecidos)
     {
-        echo $this->tanque;
         $this->tanque += $litrosAbastecidos;
-        echo $this->tanque;
     }
 
     public function andar($distancia)

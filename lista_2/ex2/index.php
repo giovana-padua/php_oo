@@ -6,7 +6,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora</title>
+    <title>PHP em POO</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
@@ -96,12 +96,16 @@
                             <a class="nav-link" aria-current="page" href="../index.php">Home</a>
                         </li>
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.php">1- Retângulo</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../ex1/index.php">1- Retângulo</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../ex2/index.php">2- Calculadora</a>
+                            <a class="nav-link active" href="index.php">2- Calculadora</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../ex3/index.php">3- Carro</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">

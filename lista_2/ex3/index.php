@@ -1,27 +1,21 @@
 <?php
 
-require_once "retangulo.php";
+include("Carro.php");
+session_start();
 
 $resultado = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Se o formulário tem um POST
-    $largura = $_POST["ilargura"];
-    $altura = $_POST["ialtura"];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
+    $consumo = $_POST["consumoEntrada"];
+    $tanque = $_POST["tanqueEntrada"];
 
-    //echo "Altura: " . $altura . "  Largura: " . $largura;
+    $car1 = new Carro(con: $consumo, tan: $tanque);
+    
+    $resultado .= "Consumo: " . $car1->getConsumo() . "km/L<br>";
+    $resultado .= "Combustível no tanque: " . $car1->getCombustivel() . "L<br>";
 
-    $ret = new Retangulo(larg: $largura, alt: $altura);
-
-    $resultado .= $resultado . "Largura: " . $ret->getLargura() . "<br>";
-    $resultado .= "Altura: " . $ret->getAltura() . "<br>";
-    $resultado .= "Área: " . $ret->calcularArea() . "<br>";
-    $resultado .= "Perímetro: " . $ret->calcularPerimetro() . "<br>";
-    if ($ret->ehQuadrado()) {
-        $resultado .= "<span class='ok'> O retângulo é um quadrado </span>";
-    } else {
-        $resultado .= "<span class='nao'> O retângulo não é um quadrado </span>";    
-    }
+    $_SESSION['objCarro'] = serialize($car1);
+    $_SESSION['resultado'] = $resultado;
 }
 
 ?>
@@ -31,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Exemplo de POO Retângulo</title>
+    <title>PHP em POO</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
@@ -55,16 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #525252;
             text-align: center;
         }
-
-        /*
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-            */
 
         label {
             font-weight: bold;
@@ -121,12 +105,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <a class="nav-link" aria-current="page" href="../index.php">Home</a>
                         </li>
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.php">1- Retângulo</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../ex1/index.php">1- Retângulo</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="../ex2/index.php">2- Calculadora</a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.php">3- Carro</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -138,27 +126,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </nav>
     </header>
     <div class="container">
-        <h2>Retângulo com POO(PHP)</h2>
+        <h2>Carro com POO(PHP)</h2>
     
-        <form method="POST">
-        <!-- método é como será enviado o formulário, post é via http -->
-            <label>Largura</label>
-            <input type="number" step="0.1" name="ilargura">
-            
-            <label>Altura</label>
-            <input type="number" step="0.1" name="ialtura">
-    
-            <button type="submit">Calcular</button>
-    
-        </form>
-
         <?php
-            if ($resultado != "") {
-                echo '<div class="resultado"><h4> Resultado </h4>' . $resultado . "</div>";
+            if ($_SESSION['resultado'] == "") {
+                echo 
+                '<form method="POST">
+                    <label>Consumo</label>
+                    <input type="number" step="0.1" name="consumoEntrada" required>
+                    
+                    <label>Quantidade de litros abastecidos: </label>
+                    <input type="number" step="0.1" name="tanqueEntrada">
+            
+                    <button type="submit">Construir carro</button>
+                </form>';
+            }
+
+            else {
+                echo '<div class="resultado"><h4>Carro: </h4>' . $_SESSION['resultado'] . "</div>";
+
+                $objCarro = unserialize($_SESSION['objCarro']);
+
+                echo 
+                '<form method="GET">
+                <label>Abastecer</label>
+                <input type="number" step="0.1" name="litrosEntrada">
+                
+                <button type="submit">Abastecer carro</button>
+                </form>';
+
+                if (isset($_REQUEST['litrosEntrada'])) 
+                {
+                    $litrosAbastecidos = $_REQUEST['litrosEntrada'];
+    
+                    $objCarro->setCombustivel($litrosAbastecidos);
+    
+                    echo '<div class="resultado">
+                            <h4>Carro abastecido: </h4>'. 
+                            $objCarro->getCombustivel() . 
+                         '</div>';
+                }
+    
+                echo
+                '<form method="GET">
+                <label>Distância percorrida</label>
+                <input type="number" step="0.1" name="distanciaEntrada">
+                
+                <button type="submit" self>Dirigir</button>
+                </form>';
+                
+                if (isset($_REQUEST['distanciaEntrada'])) 
+                {
+                    $distanciaPercorrida = $_REQUEST['distanciaEntrada'];
+    
+                    $objCarro->andar($distanciaPercorrida);
+    
+                    echo '<div class="resultado">
+                            <h4>Carro após andar </h4>
+                            <p>Combustível: '. 
+                                $objCarro->getCombustivel() .
+                            '</p>
+                         </div>';
+                }
             }
         ?>
-
-
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

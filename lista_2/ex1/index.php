@@ -1,6 +1,6 @@
 <?php
 
-require_once "retangulo.php";
+require_once "Retangulo.php";
 
 $resultado = "";
 
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Exemplo de POO Retângulo</title>
+    <title>PHP em POO</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
@@ -127,6 +127,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <li class="nav-item">
                             <a class="nav-link" href="../ex2/index.php">2- Calculadora</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../ex3/index.php">3- Carro</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
