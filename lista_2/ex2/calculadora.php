@@ -1,21 +1,21 @@
 <?php
 
 class Calculadora {
-    private static $resultado; // armazena resultada das operações
-    private static $memoria; // armazena resultado da última operação
+    private $memoria; // armazena resultado da última operação
+    private $resultado; // armazena resultada das operações
 
     public function __construct($res=0, $mem=0)
     {
-        $this->resultado = $res;
         $this->memoria = $mem;
+        $this->resultado = $res;
     }
 
     public function getMemoria() {
-        return self::$memoria;
+        return $this->memoria;
     }
 
     public function getResultado() {
-        return self::$resultado;
+        return $this->resultado;
     }
 
     public function zerar() {
@@ -24,26 +24,27 @@ class Calculadora {
     }
         
     public function desfazer() {
+        $y = $this->memoria;
         $this->memoria = $this->resultado;
-        $this->resultado = $this->memoria;        
+        $this->resultado = $y;
     }
 
-    public function somar($num = null) {
+    public function somar($num) {
         $this->memoria = $this->resultado;
-        $this->resultado = $this->resultado + $num;
+        $this->resultado += $num;
     }
         
-    public function subtrair($num = null) {
+    public function subtrair($num) {
         $this->memoria = $this->resultado;
         $this->resultado -= $num;
     }
         
-    public function multiplicar($num = null) {
+    public function multiplicar($num) {
         $this->memoria = $this->resultado;
         $this->resultado *= $num;
     }
 
-    public function dividir($num = null) {
+    public function dividir($num) {
         if ($num != 0) {
             $this->memoria = $this->resultado;
             $this->resultado /= $num;
@@ -52,12 +53,12 @@ class Calculadora {
             return "Operação inválida";
     }
 
-    public function elevarPotencia($num = null) {
+    public function elevarPotencia($num) {
         $this->memoria = $this->resultado;
         $this->resultado **= $num;
     }
 
-    public function calcularPorcentagem($num = null) {
+    public function calcularPorcentagem($num) {
         $this->memoria = $this->resultado;
         $this->resultado *= $num / 100;
     }

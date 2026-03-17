@@ -1,5 +1,61 @@
 <?php
-    require_once 'processamento.php';
+
+require_once "Calculadora.php";
+session_start();
+$visor = "";
+$_SESSION['calc'] = new Calculadora();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $numero = $_POST["inumero"];
+    $operacao = $_POST["operacao"];
+
+    $numero = str_replace(',', '.', $numero);
+    $numero = floatval($numero);
+
+    switch ($operacao) {
+        case 'desfazer':
+            $_SESSION['calc']->desfazer();
+            break;
+
+        case 'zerar':
+            $_SESSION['calc']->zerar();
+            break;
+
+        case 'soma':
+            $_SESSION['calc']->somar($numero);
+            break;
+
+        case 'subtracao':
+            $_SESSION['calc']->subtrair($numero);
+            break;
+
+        case 'multiplicacao':
+            $_SESSION['calc']->multiplicar($numero);
+            break;
+
+        case 'divisao':
+            $_SESSION['calc']->dividir($numero);
+            break;
+
+        case 'potencia':
+            $_SESSION['calc']->elevarPotencia($numero);
+            break;
+
+        case 'porcentagem':
+            $_SESSION['calc']->calcularPorcentagem($numero);
+            break;
+
+        case 'raiz':
+            $_SESSION['calc']->calcularRaiz();
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+    
+    $visor .= "<p class='memoria'>" . $_SESSION['calc']->getMemoria() . "</p><h3class='memoria'>" . $_SESSION['calc']->getResultado() . "</h3>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -121,20 +177,20 @@
 
         <div class="resultado">
             <?php
-                if (isset($_SESSION['memoria']) && $_SESSION['resultado'])
-                    echo
-                    "<p>" . $_SESSION['memoria'] . "</p>
-                    <h3>" . $_SESSION['resultado'] . "</h3>";
+                if (isset($visor))
+                    echo $visor;
             ?>
         </div>
     
-        <form method="POST" action="processamento.php">
+        <form method="POST">
         <!-- método é como será enviado o formulário, post é via http -->
             <label>Número</label>
-            <input type="number" step="1" name="inumero" required>
+            <input type="number" step="1" name="inumero">
             
             <label>Operação</label>
             <select name="operacao">
+                <option value="desfazer"><-</option>
+                <option value="zerar">CE</option>
                 <option value="soma">+</option>
                 <option value="subtracao">-</option>
                 <option value="multiplicacao">*</option>

@@ -1,11 +1,10 @@
 <?php
 
 include("Carro.php");
-session_start();
 
 $resultado = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $consumo = $_POST["consumoEntrada"];
     $tanque = $_POST["tanqueEntrada"];
 
@@ -13,9 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
     
     $resultado .= "Consumo: " . $car1->getConsumo() . "km/L<br>";
     $resultado .= "Combustível no tanque: " . $car1->getCombustivel() . "L<br>";
-
-    $_SESSION['objCarro'] = serialize($car1);
-    $_SESSION['resultado'] = $resultado;
 }
 
 ?>
@@ -129,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
         <h2>Carro com POO(PHP)</h2>
     
         <?php
-            if ($_SESSION['resultado'] == "") {
+            if ($resultado == "") {
                 echo 
                 '<form method="POST">
                     <label>Consumo</label>
@@ -143,9 +139,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
             }
 
             else {
-                echo '<div class="resultado"><h4>Carro: </h4>' . $_SESSION['resultado'] . "</div>";
-
-                $objCarro = unserialize($_SESSION['objCarro']);
+                
+                echo '<div class="resultado"><h4>Carro: </h4>' . $resultado . "</div>";
 
                 echo 
                 '<form method="GET">
@@ -159,12 +154,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
                 {
                     $litrosAbastecidos = $_REQUEST['litrosEntrada'];
     
-                    $objCarro->setCombustivel($litrosAbastecidos);
+                    $car1->setCombustivel($litrosAbastecidos);
     
+                    echo '<div class="resultado"><h4>Carro: </h4>' . $resultado . "</div>";
+
                     echo '<div class="resultado">
                             <h4>Carro abastecido: </h4>'. 
-                            $objCarro->getCombustivel() . 
+                            $car1->getCombustivel() . 
                          '</div>';
+
                 }
     
                 echo
@@ -179,12 +177,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['consumoEntrada'])) {
                 {
                     $distanciaPercorrida = $_REQUEST['distanciaEntrada'];
     
-                    $objCarro->andar($distanciaPercorrida);
+                    $car1->andar($distanciaPercorrida);
     
                     echo '<div class="resultado">
                             <h4>Carro após andar </h4>
                             <p>Combustível: '. 
-                                $objCarro->getCombustivel() .
+                                $car1->getCombustivel() .
                             '</p>
                          </div>';
                 }
