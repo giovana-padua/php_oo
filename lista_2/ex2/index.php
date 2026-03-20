@@ -3,7 +3,9 @@
 require_once "Calculadora.php";
 session_start();
 $visor = "";
-$_SESSION['calc'] = new Calculadora();
+
+if ($_SESSION['calc'] === null) // faltava uma linha para verificar se a variável de sessão está vazia
+    $_SESSION['calc'] = new Calculadora(); // sem a linha acima cria um objeto novo a cada vez que a página é recarregada
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero = $_POST["inumero"];
